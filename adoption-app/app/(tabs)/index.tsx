@@ -2,22 +2,37 @@ import { useState } from "react";
 import {
   View,
   FlatList,
-  ActivityIndicator,
   RefreshControl,
   Text as RnText,
+  Pressable,
+  Modal,
+  StyleSheet,
 } from "react-native";
 import { Text } from "../components/Text";
 import { useQuery } from "@tanstack/react-query";
 import { IDog } from "../model";
-import * as S from "./styles";
 import DogIcon from "../components/DogIcon";
+import Loading from "../components/Loading";
+import * as S from "./styles";
+
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import ModalContent from "../components/ModalContent";
 
 type ItemProps = {
   item: IDog;
 };
 
+type EventProps = {
+  locationX: number;
+  locationY: number;
+  pageX: number;
+  pageY: number;
+};
+
 export default function Home() {
+  const [position, setPosition] = useState<EventProps>();
+  const [isVisible, setISVisible] = useState(false);
+
   const {
     data: Dogs,
     isLoading,
@@ -94,7 +109,8 @@ export default function Home() {
           <RnText>Color{item.color}</RnText>
         </View>
 
-        <View
+        <Pressable
+          onPress={({ nativeEvent: PressEvent }) => handlerModal(PressEvent)}
           style={{
             width: "10%",
             justifyContent: "flex-start",
@@ -107,10 +123,22 @@ export default function Home() {
             size={24}
             color="black"
           />
-        </View>
+        </Pressable>
       </View>
     </View>
   );
+
+  const handlerModal = (evt: EventProps) => {
+    const newPosition: EventProps = {
+      locationX: parseInt(String(evt.pageX)) - 200,
+      locationY: parseInt(String(evt.locationY)),
+      pageX: parseInt(String(evt.pageX)) - 230,
+      pageY: parseInt(String(evt.pageY)),
+    };
+
+    setISVisible(!isVisible);
+    setPosition(newPosition);
+  };
 
   return (
     <>
@@ -122,7 +150,7 @@ export default function Home() {
 
       <S.Container>
         {isLoading ? (
-          <ActivityIndicator size="large" color="#5a3010" />
+          <Loading />
         ) : (
           <FlatList
             contentContainerStyle={{ marginVertical: 10 }}
@@ -136,6 +164,65 @@ export default function Home() {
           />
         )}
       </S.Container>
+      <Modal
+        animationType="fade"
+        transparent
+        visible={isVisible}
+        onRequestClose={() => {
+          setISVisible(false);
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View
+            style={[
+              styles.modalView,
+              {
+                marginLeft: position?.pageX,
+                marginTop: position?.pageY,
+              },
+            ]}
+          >
+            <Pressable
+              onPress={() => setISVisible(false)}
+              style={{
+                justifyContent: "center",
+                alignItems: "flex-end",
+              }}
+            >
+              <Text type="default">X</Text>
+            </Pressable>
+
+            <ModalContent menuText="New Dog" icon="form" onPress={() => {}} />
+            <ModalContent menuText="Edit Dog" icon="edit" onPress={() => {}} />
+            <ModalContent
+              menuText="Delete Dog"
+              icon="closecircleo"
+              onPress={() => {}}
+            />
+          </View>
+        </View>
+      </Modal>
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  centeredView: {
+    flex: 1,
+    backgroundColor: "#55545460",
+  },
+  modalView: {
+    width: 230,
+    backgroundColor: "white",
+    borderRadius: 12,
+    padding: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+});
