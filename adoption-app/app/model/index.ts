@@ -16,9 +16,17 @@ export type Dog = {
     data: Array<IDog>
 }
 
+export enum ImageBreed {
+    dog = Dog,
+    cat = Cat,
+    pischer = Pischer,
+    noimage = NoPhoto
+}
+
 export const ImageBreeds = {
     dog: Dog,
     cat: Cat,
     pischer: Pischer,
     noimage: NoPhoto
 }
+

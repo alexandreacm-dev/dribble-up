@@ -11,7 +11,8 @@ export default {
         icon: '#687076',
         tabIconDefault: '#0c9fd5',
         tabIconSelected: tintColorLight,
-        buttonColor: '#0f60a6'
+        buttonColor: '#0f60a6',
+        error: '#FF0000'
     },
     fonts: {
         Inter_100: 'Inter_100Thin',

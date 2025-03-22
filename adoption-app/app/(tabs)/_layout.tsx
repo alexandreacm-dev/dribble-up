@@ -4,7 +4,7 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 
 const tabOptions = {
   headerStyle: {
-    backgroundColor: "orange",
+    backgroundColor: "#2dc84d",
     borderWidth: 0,
     borderColor: "#808080",
   },
@@ -24,7 +24,7 @@ const tabOptions = {
     borderWidth: 1,
     borderColor: "#808080",
   },
-  tabBarActiveTintColor: "#cd7204",
+  tabBarActiveTintColor: "#128642",
 };
 
 export default function TabLayout() {

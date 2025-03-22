@@ -11,7 +11,8 @@ export type ThemedTextProps = TextProps & {
     | "subtitle"
     | "link"
     | "primaryTitle"
-    | "date";
+    | "date"
+    | "error";
 };
 
 export function Text({
@@ -33,6 +34,7 @@ export function Text({
         type === "link" ? styles.link : undefined,
         type === "primaryTitle" ? styles.primaryTitle : undefined,
         type === "date" ? styles.date : undefined,
+        type === "error" ? styles.error : undefined,
         style,
       ]}
       {...rest}
@@ -80,5 +82,12 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "#353434",
     marginTop: 10,
+  },
+  error: {
+    fontFamily: theme.fonts.Inter_400_Regular,
+    fontSize: 14,
+    color: "#FF0000",
+    marginTop: 10,
+    textAlign: "center",
   },
 });
