@@ -3,7 +3,7 @@ const tintColorLight = '#0a7ea4';
 export default {
     //TOKENS
     colors: {
-        primary: 'orange',
+        primary: '#00386c',
         secondaryColor: '#FFFFFF',
         text: '#11181C',
         background: '#000',

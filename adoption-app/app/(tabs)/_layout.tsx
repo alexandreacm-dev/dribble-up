@@ -1,10 +1,10 @@
 import { Tabs } from "expo-router";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import AntDesign from "@expo/vector-icons/AntDesign";
-
+import light from "../styles/light";
 const tabOptions = {
   headerStyle: {
-    backgroundColor: "#2dc84d",
+    backgroundColor: light.colors.primary,
     borderWidth: 0,
     borderColor: "#808080",
   },
@@ -24,7 +24,7 @@ const tabOptions = {
     borderWidth: 1,
     borderColor: "#808080",
   },
-  tabBarActiveTintColor: "#128642",
+  tabBarActiveTintColor: "#0f60a6",
 };
 
 export default function TabLayout() {
